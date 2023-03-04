@@ -463,8 +463,8 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 	System::Windows::Forms::DialogResult dr = this->folderBrowserDialog1->ShowDialog();
 	if (dr == System::Windows::Forms::DialogResult::OK )
 	{
-		//while (true) //endless loop, expected that user will monitor all objects during work of app
-		//{
+		while (true) //endless loop, expected that user will monitor all objects during work of app
+		{
 			System::Collections::Generic::IEnumerable<System::String^>^ files = System::IO::Directory::EnumerateFiles(this->folderBrowserDialog1->SelectedPath);
 			
 			for each (System::String ^ item in files)
@@ -504,7 +504,7 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 					}
 					delete bmp_file;
 				}
-				else if (item->EndsWith(".jpg") || item->EndsWith(".jpeg"))
+				else if (item->EndsWith(".jpg") || item->EndsWith(".JPG") || item->EndsWith(".jpeg") || item->EndsWith(".JPEG"))
 				{
 					DateTime creation = File::GetLastWriteTime(item);
 					System::Drawing::Image^ bmp_file =  gcnew Bitmap(item);
@@ -529,15 +529,15 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 
 						this->textBox2->Refresh();
 						this->pictureBox1->Refresh();
+						System::Threading::Thread::Sleep(3000);
 					}
 					delete bmp_file;
 				}
-				//this->Refresh();
-				System::Threading::Thread::Sleep(3000);
+				
 			}
-			System::Media::SystemSounds::Hand->Play();
-			//System::Threading::Thread::Sleep(15000);
-		//}
+			//System::Media::SystemSounds::Hand->Play();
+			//System::Threading::Thread::Sleep(5000);
+		}
 	}
 }
 private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
